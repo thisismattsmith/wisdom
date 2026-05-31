@@ -1,0 +1,49 @@
+---
+const { siteName = 'Plain Sense' } = Astro.props;
+---
+<div class="utility">
+  <a href="/" class="utility-home">{siteName}</a>
+  <div class="utility-right">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .utility {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--soft-cloud);
+    font-size: 12px;
+    font-weight: 500;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .utility-home {
+    color: var(--ink);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .utility-home:hover {
+    text-decoration: underline;
+  }
+  .utility-right {
+    display: flex;
+    gap: 18px;
+  }
+  .utility-right :global(span) {
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .utility-right :global(span):first-child {
+      display: none;
+    }
+  }
+</style>

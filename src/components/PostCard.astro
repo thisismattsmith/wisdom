@@ -1,0 +1,102 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: Date;
+  tags: string[];
+  sourceAuthor?: string;
+  sourceYear?: string;
+}
+
+const { slug, title, excerpt, date, tags, sourceAuthor, sourceYear } = Astro.props;
+const dateStr = date.toLocaleDateString('en-AU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const searchable = [title, excerpt, ...tags, sourceAuthor ?? '', sourceYear ?? '']
+  .join(' ')
+  .toLowerCase();
+---
+<a
+  href={`/posts/${slug}/`}
+  class="post-card"
+  data-tags={tags.join(',')}
+  data-searchable={searchable}
+>
+  <div class="meta">
+    <span class="date">{dateStr}</span>
+    {sourceAuthor && (
+      <span class="source">
+        {sourceAuthor}{sourceYear ? `, ${sourceYear}` : ''}
+      </span>
+    )}
+  </div>
+  <h2>{title}</h2>
+  <p class="excerpt">{excerpt}</p>
+  <div class="tag-row">
+    {tags.map((tag) => (
+      <span class="tag">{tag.replace(/-/g, ' ')}</span>
+    ))}
+  </div>
+</a>
+
+<style>
+  .post-card {
+    display: block;
+    background: var(--soft-cloud);
+    padding: 30px;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: border-color 120ms ease, background 120ms ease;
+  }
+  .post-card:hover {
+    border-color: var(--ink);
+  }
+  .meta {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mute);
+    margin-bottom: 18px;
+  }
+  .post-card h2 {
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .excerpt {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--charcoal);
+    margin-bottom: 18px;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: var(--mute);
+    padding: 4px 10px;
+    border: 1px solid var(--hairline);
+    border-radius: 30px;
+    background: var(--canvas);
+  }
+  @media (max-width: 760px) {
+    .post-card h2 {
+      font-size: 24px;
+    }
+  }
+</style>

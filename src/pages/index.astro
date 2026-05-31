@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts');
+const posts = allPosts
+  .map((p) => p.data)
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf());
+
+const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
+---
+<BaseLayout title="Plain Sense — Old Ideas, Made Useful">
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Plain Sense</div>
+      <h1>Old Ideas,<br />Made Useful.</h1>
+      <p class="sub">
+        A small library of classical and historical writing, translated into plain language
+        and simple decision frameworks for the way we argue now. One old idea at a time.
+      </p>
+    </div>
+  </header>
+
+  <section class="filters">
+    <div class="wrap">
+      <label class="search-label" for="search">Search</label>
+      <input
+        type="search"
+        id="search"
+        placeholder="Search posts by title, theme, or author…"
+        aria-label="Search posts"
+      />
+      <div class="tags" id="tags" role="group" aria-label="Filter by tag">
+        <button class="tag-chip active" data-tag="" type="button">All</button>
+        {allTags.map((tag) => (
+          <button class="tag-chip" data-tag={tag} type="button">
+            {tag.replace(/-/g, ' ')}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="posts">
+    <div class="wrap">
+      <div class="posts-grid" id="posts-grid">
+        {posts.map((post) => (
+          <PostCard
+            slug={post.slug}
+            title={post.title}
+            excerpt={post.excerpt}
+            date={post.date}
+            tags={post.tags}
+            sourceAuthor={post.sourceAuthor}
+            sourceYear={post.sourceYear}
+          />
+        ))}
+      </div>
+      <p class="empty" id="empty" hidden>No posts match your search.</p>
+    </div>
+  </section>
+
+  <script>
+    const search = document.getElementById('search') as HTMLInputElement | null;
+    const grid = document.getElementById('posts-grid');
+    const empty = document.getElementById('empty');
+    const tagButtons = document.querySelectorAll<HTMLButtonElement>('.tag-chip');
+
+    let activeTag = '';
+    let query = '';
+
+    function applyFilter() {
+      if (!grid) return;
+      const cards = grid.querySelectorAll<HTMLElement>('.post-card');
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const tags = (card.dataset.tags ?? '').split(',');
+        const searchable = (card.dataset.searchable ?? '').toLowerCase();
+        const matchesTag = !activeTag || tags.includes(activeTag);
+        const matchesQuery = !query || searchable.includes(query);
+        const visible = matchesTag && matchesQuery;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+      if (empty) empty.hidden = visibleCount !== 0;
+    }
+
+    search?.addEventListener('input', (e) => {
+      query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      applyFilter();
+    });
+
+    tagButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        tagButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeTag = btn.dataset.tag ?? '';
+        applyFilter();
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .filters {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .filters .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .search-label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mute);
+  }
+  #search {
+    background: var(--soft-cloud);
+    border: 2px solid transparent;
+    border-radius: 24px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-family: inherit;
+    height: 48px;
+    color: var(--ink);
+    width: 100%;
+    max-width: 520px;
+    outline: none;
+    transition: border-color 120ms ease, background 120ms ease;
+  }
+  #search:focus {
+    background: var(--canvas);
+    border-color: var(--ink);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag-chip {
+    background: var(--canvas);
+    color: var(--ink);
+    border: 1px solid var(--hairline);
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+  }
+  .tag-chip:hover {
+    border-color: var(--ink);
+  }
+  .tag-chip.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  .posts {
+    padding: 48px 0 64px;
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .empty {
+    font-size: 16px;
+    color: var(--mute);
+    text-align: center;
+    padding: 48px 0;
+  }
+  @media (max-width: 760px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

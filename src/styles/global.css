@@ -1,0 +1,63 @@
+:root {
+  --ink: #111111;
+  --canvas: #ffffff;
+  --soft-cloud: #f5f5f5;
+  --hairline: #cacacb;
+  --hairline-soft: #e5e5e5;
+  --charcoal: #39393b;
+  --mute: #707072;
+  --sale: #d30005;
+  --success: #007d48;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Reusable hero — used on homepage and post pages */
+.hero {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--hairline);
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-size: 96px;
+  line-height: 0.9;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  max-width: 14ch;
+}
+.hero .sub {
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--charcoal);
+  max-width: 60ch;
+}
+
+@media (max-width: 760px) {
+  .hero h1 { font-size: 48px; }
+}

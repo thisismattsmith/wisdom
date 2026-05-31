@@ -1,0 +1,79 @@
+---
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>About this site</h3>
+        <p>
+          Plain Sense translates classical and historical writing on ethics, reasoning,
+          and public life into plain language and simple decision frameworks. One old idea
+          at a time, made useful for the way we argue now — at the dinner table, in the
+          group chat, in the reply column.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h3>Attribution</h3>
+        <p>
+          Written and built by
+          <a href="https://thisismattsmith.com" rel="me noopener">Matt Smith</a>.
+          Source texts are public domain. Plain-language interpretations, decision trees,
+          and flowcharts are original work for illustrative discussion.
+        </p>
+      </div>
+    </div>
+    <p class="fine">© {year} Plain Sense. Source quotations remain the work of their original authors.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--hairline);
+    padding: 48px 0 30px;
+    background: var(--canvas);
+  }
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 30px;
+  }
+  .footer-col h3 {
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .footer-col p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--mute);
+    max-width: 52ch;
+  }
+  .footer-col a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .fine {
+    font-size: 9px;
+    line-height: 1.75;
+    color: var(--mute);
+    border-top: 1px solid var(--hairline-soft);
+    padding-top: 18px;
+  }
+  @media (max-width: 760px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>
