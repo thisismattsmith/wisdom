@@ -3,19 +3,20 @@ interface Props {
   slug: string;
   title: string;
   excerpt: string;
-  date: Date;
   tags: string[];
   sourceAuthor?: string;
   sourceYear?: string;
 }
 
-const { slug, title, excerpt, date, tags, sourceAuthor, sourceYear } = Astro.props;
-const dateStr = date.toLocaleDateString('en-AU', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
-const searchable = [title, excerpt, ...tags, sourceAuthor ?? '', sourceYear ?? '']
+const { slug, title, excerpt, tags, sourceAuthor, sourceYear } = Astro.props;
+
+const searchable = [
+  title,
+  excerpt,
+  ...tags,
+  sourceAuthor ?? '',
+  sourceYear ?? '',
+]
   .join(' ')
   .toLowerCase();
 ---
@@ -25,14 +26,13 @@ const searchable = [title, excerpt, ...tags, sourceAuthor ?? '', sourceYear ?? '
   data-tags={tags.join(',')}
   data-searchable={searchable}
 >
-  <div class="meta">
-    <span class="date">{dateStr}</span>
-    {sourceAuthor && (
+  {sourceAuthor && (
+    <div class="meta">
       <span class="source">
         {sourceAuthor}{sourceYear ? `, ${sourceYear}` : ''}
       </span>
-    )}
-  </div>
+    </div>
+  )}
   <h2>{title}</h2>
   <p class="excerpt">{excerpt}</p>
   <div class="tag-row">
@@ -50,15 +50,14 @@ const searchable = [title, excerpt, ...tags, sourceAuthor ?? '', sourceYear ?? '
     color: var(--ink);
     text-decoration: none;
     border: 1px solid transparent;
-    transition: border-color 120ms ease, background 120ms ease;
+    transition: border-color 120ms ease;
   }
   .post-card:hover {
     border-color: var(--ink);
   }
   .meta {
     display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
+    justify-content: flex-end;
     font-size: 12px;
     font-weight: 500;
     text-transform: uppercase;
@@ -95,8 +94,6 @@ const searchable = [title, excerpt, ...tags, sourceAuthor ?? '', sourceYear ?? '
     background: var(--canvas);
   }
   @media (max-width: 760px) {
-    .post-card h2 {
-      font-size: 24px;
-    }
+    .post-card h2 { font-size: 24px; }
   }
 </style>

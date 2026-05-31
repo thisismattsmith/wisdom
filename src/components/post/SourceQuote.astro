@@ -1,0 +1,47 @@
+---
+interface Props {
+  author: string;
+  work?: string;
+  year?: string | number;
+  label?: string;
+}
+const { author, work, year, label = 'The Original Text' } = Astro.props;
+---
+<div class="source">
+  <div class="wrap">
+    <div class="label">{label}</div>
+    <blockquote><slot /></blockquote>
+    <cite>
+      — {author}{work && <>, <em>{work}</em></>}{year && ` (${year})`}
+    </cite>
+  </div>
+</div>
+
+<style>
+  .source {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mute);
+    margin-bottom: 18px;
+  }
+  blockquote {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--charcoal);
+    max-width: 72ch;
+  }
+  cite {
+    display: block;
+    margin-top: 18px;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--ink);
+  }
+</style>

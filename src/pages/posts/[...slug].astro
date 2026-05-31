@@ -1,0 +1,36 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { title, excerpt, sourceAuthor, sourceYear, concept } = post.data;
+
+const utilityRightParts: string[] = [];
+if (concept) utilityRightParts.push(concept);
+if (sourceAuthor) {
+  utilityRightParts.push(
+    sourceYear ? `${sourceAuthor}, ${sourceYear}` : sourceAuthor,
+  );
+}
+---
+<BaseLayout title={title} description={excerpt}>
+  {utilityRightParts.length > 0 && (
+    <Fragment slot="utility-right">
+      {utilityRightParts.map((part) => <span>{part}</span>)}
+    </Fragment>
+  )}
+  <Content />
+</BaseLayout>

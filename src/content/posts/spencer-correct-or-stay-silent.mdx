@@ -1,0 +1,110 @@
+---
+title: "To Correct, or Stay Silent"
+excerpt: "Herbert Spencer's 1879 framework for when to call out a wrong statement — and when to let it pass. A decision tree, a flowchart, and a plain-language read for the age of the reply guy."
+date: 2026-05-31
+tags: [ethics, social-discourse, victorian-philosophy, decision-making]
+sourceAuthor: "Herbert Spencer"
+sourceYear: "1879"
+concept: "Negative Beneficence"
+---
+import Hero from '../../components/post/Hero.astro'
+import SourceQuote from '../../components/post/SourceQuote.astro'
+import MainPoints from '../../components/post/MainPoints.astro'
+import DecisionTree from '../../components/diagrams/DecisionTree.astro'
+import TwoColumnFlowchart from '../../components/diagrams/TwoColumnFlowchart.astro'
+
+<Hero eyebrow="A Decision Tree" title={"To Correct,\nor Stay Silent"}>
+  Someone says something you believe to be wrong. Do you speak up or let it slide? Herbert Spencer worked through this dilemma in <em>The Data of Ethics</em>.
+</Hero>
+
+<SourceQuote author="Herbert Spencer" work="The Data of Ethics" year="1879">
+  "Over the dinner table, or in groups of persons otherwise held together, there frequently occur cases in which an erroneous statement is made or an invalid argument urged. One who recognizes the error may either display his superior knowledge or superior logic, or he may let the error pass in silence: not wishing to raise the estimate of himself at the cost of lowering the estimate of another. Which shall he do? A proper decision implies several considerations. Is the wrong statement or invalid argument one which will do appreciable mischief if it passes uncorrected? Is the person who utters it vain, or one whose self-esteem is excessive? Is he improperly regarded as an authority by those around? Does he trample down others in the pursuit of applause? If to some or all of these questions the answer is — Yes, the correction may fitly be made; alike for the benefit of the individual himself and for the benefit of hearers. But should the error be trivial, or should the credit of one who makes it, not higher than is proper, be unduly injured by the exposure, or should his general behavior in social intercourse be of a praiseworthy kind, then sympathy may fitly dictate silence — negative beneficence may rightly restrain the natural desire to show superiority."
+</SourceQuote>
+
+<DecisionTree
+  intro="Work Through It"
+  lead='Start at the top. Each "Yes" pushes you toward correcting. Reach the bottom with mostly "No" and silence is the kinder, smarter call.'
+  yesHint="lean toward correcting"
+  noHint="lean toward silence"
+  nodes={[
+    {
+      step: "Stakes",
+      question: "Will the error actually cause harm if it goes uncorrected?",
+      plain: "Does this matter? If the false claim could mislead people, spread, or do real damage, it's worth addressing. If it's harmless trivia, the stakes are low.",
+      original: "Is the wrong statement or invalid argument one which will do appreciable mischief if it passes uncorrected?",
+    },
+    {
+      step: "Ego",
+      question: "Is this person arrogant or overly full of themselves?",
+      plain: "Are they speaking from genuine confidence, or inflated self-regard? Correcting a humble person costs them dignity. Correcting an arrogant one mostly costs them air.",
+      original: "Is the person who utters it vain, or one whose self-esteem is excessive?",
+    },
+    {
+      step: "Authority",
+      question: "Are people wrongly treating them as an expert?",
+      plain: "If others defer to this person as a trusted voice, their error carries further than it should. An unearned platform raises the cost of letting it slide.",
+      original: "Is he improperly regarded as an authority by those around?",
+    },
+    {
+      step: "Conduct",
+      question: "Do they bulldoze other people to win attention?",
+      plain: "Is this someone who talks over others and grabs applause at their expense? If so, a correction restores some balance. If they're decent and generous in conversation, that weighs toward leaving them be.",
+      original: "Does he trample down others in the pursuit of applause?",
+    },
+  ]}
+  outcomes={[
+    {
+      tone: "correct",
+      label: "If mostly YES",
+      title: "Correct It",
+      body: "The error is consequential, the speaker can absorb it, and people are listening. Speaking up serves both the person and the room. Make the correction.",
+    },
+    {
+      tone: "silent",
+      label: "If mostly NO",
+      title: "Stay Silent",
+      body: "The error is trivial, the speaker is decent, and no real harm follows. Let it pass. Spencer calls this <em>negative beneficence</em> — kindness through restraint.",
+    },
+  ]}
+/>
+
+<MainPoints
+  points={[
+    {
+      title: '"Being right isn\'t a reason to say it."',
+      body: "The question isn't whether you <em>can</em> correct someone. It's whether the correction does more good than the embarrassment does harm.",
+    },
+    {
+      title: "Silence can be the generous move.",
+      body: 'Spencer\'s term — "negative beneficence" — means doing good by holding back. Not every wrong statement is a debt you\'re owed the satisfaction of collecting.',
+    },
+    {
+      title: "The loud and the unearned-authority get corrected.",
+      body: "If someone is steamrolling the room or being treated as an expert they aren't, letting it slide harms everyone listening. That's when you speak.",
+    },
+  ]}
+/>
+
+<TwoColumnFlowchart
+  heading="Negative Beneficence"
+  lead="Herbert Spencer's concept from 'The Principles of Ethics' on when to correct others or say nothing."
+  start="An error is spoken"
+  leftHead="Reasons to Correct"
+  leftCards={[
+    { step: "Real Harm",   ask: "Will it cause real damage if no one speaks up?" },
+    { step: "Arrogance",   ask: "Is this person full of themselves?" },
+    { step: "Fake Expert", ask: "Are people treating them as an expert when they shouldn't?" },
+    { step: "Steamroller", ask: "Do they bulldoze others to win attention?" },
+  ]}
+  rightHead="Reasons to Stay Silent"
+  rightCards={[
+    { step: "Too Small",    ask: "Is the mistake too minor to matter?" },
+    { step: "Unfair Hit",   ask: "Would correcting them make them look worse than they deserve?" },
+    { step: "Good Company", ask: "Are they generally kind and decent?" },
+    { step: "Showing Off",  ask: "Am I mostly doing this to look smart?" },
+  ]}
+  results={[
+    { tone: "go",   rtag: "If the left side prevails",  title: "Correct It" },
+    { tone: "stay", rtag: "If the right side prevails", title: "Stay Silent" },
+  ]}
+/>

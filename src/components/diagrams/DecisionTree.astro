@@ -1,0 +1,210 @@
+---
+interface Node {
+  step: string;       // e.g. "Stakes"
+  question: string;   // headline question
+  plain: string;      // plain-language explanation
+  original?: string;  // optional original-text quote
+}
+interface Outcome {
+  label: string;
+  title: string;
+  body: string;
+  tone: 'correct' | 'silent';
+}
+interface Props {
+  intro?: string;
+  lead?: string;
+  yesHint?: string;
+  noHint?: string;
+  nodes: Node[];
+  outcomes: Outcome[];
+}
+const {
+  intro,
+  lead,
+  yesHint = 'lean toward yes',
+  noHint = 'lean toward no',
+  nodes,
+  outcomes,
+} = Astro.props;
+---
+<section class="tree">
+  <div class="wrap">
+    {intro && <div class="tree-intro">{intro}</div>}
+    {lead && <p class="tree-lead">{lead}</p>}
+
+    {nodes.map((node, i) => (
+      <>
+        <div class="node">
+          <div class="q">
+            <div class="step">Question {String(i + 1).padStart(2, '0')} — {node.step}</div>
+            <h3>{node.question}</h3>
+            <p class="plain">{node.plain}</p>
+            {node.original && <p class="original">"{node.original}"</p>}
+            <div class="branches">
+              <span class="pill yes">Yes <small>{yesHint}</small></span>
+              <span class="pill no">No <small>{noHint}</small></span>
+            </div>
+          </div>
+        </div>
+        {i < nodes.length - 1 && <div class="connector">Then ask</div>}
+      </>
+    ))}
+
+    <div class="outcomes">
+      {outcomes.map((o) => (
+        <div class={`outcome ${o.tone}`}>
+          <div class="tag">{o.label}</div>
+          <h4>{o.title}</h4>
+          <p set:html={o.body} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tree {
+    padding: 48px 0;
+  }
+  .tree-intro {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tree-lead {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--mute);
+    max-width: 60ch;
+    margin-bottom: 48px;
+  }
+
+  .q {
+    border-top: 1px solid var(--hairline);
+    padding: 24px 0;
+  }
+  .step {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mute);
+  }
+  h3 {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 500;
+    margin: 8px 0 12px;
+  }
+  .plain {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--charcoal);
+    max-width: 64ch;
+  }
+  .original {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--mute);
+    max-width: 64ch;
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  .branches {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 32px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid var(--hairline);
+  }
+  .pill.yes {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .pill.no {
+    background: var(--soft-cloud);
+    color: var(--ink);
+  }
+  .pill small {
+    font-weight: 400;
+    color: var(--mute);
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  .pill.yes small {
+    color: #9e9ea0;
+  }
+
+  .connector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 0 6px;
+    color: var(--mute);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .connector::before {
+    content: '↓';
+    font-size: 18px;
+  }
+
+  .outcomes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 48px;
+  }
+  .outcome {
+    padding: 30px;
+    background: var(--soft-cloud);
+  }
+  .outcome.correct {
+    background: var(--ink);
+    color: #fff;
+  }
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+  .outcome.correct .tag { color: #9e9ea0; }
+  .outcome.silent .tag { color: var(--mute); }
+  h4 {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .outcome p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .outcome.silent p { color: var(--charcoal); }
+  .outcome.correct p { color: #e5e5e5; }
+
+  @media (max-width: 760px) {
+    .tree-intro { font-size: 24px; }
+    .outcomes { grid-template-columns: 1fr; }
+    .branches { flex-direction: column; align-items: flex-start; }
+  }
+</style>

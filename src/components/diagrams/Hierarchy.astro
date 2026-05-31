@@ -1,0 +1,241 @@
+---
+/**
+ * Hierarchy: a three-tier vertical taxonomy diagram.
+ *
+ *           [ROOT]                  — single top concept (black box)
+ *              |
+ *      ________|________
+ *      |       |       |
+ *   [BRANCH] [BRANCH] [BRANCH]      — categories (white boxes, hairline)
+ *    -leaf    -leaf    -leaf        — optional list inside each branch
+ *    -leaf    -leaf    -leaf
+ *
+ * Use for taxonomies, classifications, "X breaks down into Y and Z" structures.
+ * Cap at 3 levels — anything deeper gets unreadable on the page.
+ */
+interface Leaf {
+  label: string;
+  note?: string;
+}
+interface Branch {
+  label: string;
+  description?: string;
+  leaves?: Array<Leaf | string>;
+}
+interface Props {
+  heading?: string;
+  lead?: string;
+  rootLabel: string;
+  rootDescription?: string;
+  branches: Branch[];
+}
+const { heading, lead, rootLabel, rootDescription, branches } = Astro.props;
+
+const normalize = (l: Leaf | string): Leaf =>
+  typeof l === 'string' ? { label: l } : l;
+---
+<section class="hier">
+  <div class="wrap">
+    {heading && <h2>{heading}</h2>}
+    {lead && <p class="lead">{lead}</p>}
+
+    <div class="hier-chart">
+      <div class="hier-root">
+        <div class="hier-root-label">{rootLabel}</div>
+        {rootDescription && <div class="hier-root-desc">{rootDescription}</div>}
+      </div>
+
+      <div class="hier-trunk"></div>
+
+      <div class="hier-branches" style={`--branches: ${branches.length}`}>
+        {branches.map((branch) => (
+          <div class="hier-branch">
+            <div class="hier-branch-head">
+              <div class="hier-branch-label">{branch.label}</div>
+              {branch.description && (
+                <div class="hier-branch-desc">{branch.description}</div>
+              )}
+            </div>
+            {branch.leaves && branch.leaves.length > 0 && (
+              <ul class="hier-leaves">
+                {branch.leaves.map((leaf) => {
+                  const l = normalize(leaf);
+                  return (
+                    <li class="hier-leaf">
+                      <span class="hier-leaf-label">{l.label}</span>
+                      {l.note && <span class="hier-leaf-note">{l.note}</span>}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hier {
+    padding: 48px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  h2 {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .lead {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--mute);
+    max-width: 90ch;
+    margin-bottom: 48px;
+  }
+
+  .hier-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Root */
+  .hier-root {
+    background: var(--ink);
+    color: #fff;
+    text-align: center;
+    padding: 18px 32px;
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .hier-root-label {
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .hier-root-desc {
+    font-size: 14px;
+    color: #e5e5e5;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* Trunk (vertical line from root) */
+  .hier-trunk {
+    width: 1px;
+    height: 32px;
+    background: var(--ink);
+    margin: 0 auto;
+  }
+
+  /* Branches row */
+  .hier-branches {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    padding-top: 32px;
+  }
+  /* Horizontal connector across branch tops, spanning centers */
+  .hier-branches::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc(100% / var(--branches) / 2);
+    right: calc(100% / var(--branches) / 2);
+    height: 1px;
+    background: var(--ink);
+  }
+
+  .hier-branch {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  /* Vertical stem from horizontal connector down to branch box */
+  .hier-branch::before {
+    content: '';
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    width: 1px;
+    height: 32px;
+    background: var(--ink);
+  }
+
+  .hier-branch-head {
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    padding: 18px;
+  }
+  .hier-branch-label {
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .hier-branch-desc {
+    font-size: 14px;
+    color: var(--mute);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* Leaves */
+  .hier-leaves {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: var(--soft-cloud);
+    border: 1px solid var(--hairline);
+    border-top: none;
+    flex: 1;
+  }
+  .hier-leaf {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .hier-leaf:last-child {
+    border-bottom: none;
+  }
+  .hier-leaf-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .hier-leaf-note {
+    display: block;
+    font-size: 12px;
+    color: var(--mute);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 760px) {
+    h2 { font-size: 24px; }
+
+    .hier-branches {
+      flex-direction: column;
+      gap: 24px;
+      padding-top: 0;
+    }
+    .hier-branches::before { display: none; }
+    .hier-branch::before { display: none; }
+
+    /* Connect stacked branches with a thin vertical line */
+    .hier-branch + .hier-branch::after {
+      content: '';
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      width: 1px;
+      height: 24px;
+      background: var(--ink);
+    }
+  }
+</style>

@@ -1,26 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/post/Hero.astro';
 import PostCard from '../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
 const posts = allPosts
-  .map((p) => p.data)
-  .sort((a, b) => b.date.valueOf() - a.date.valueOf());
+  .map((p) => ({ slug: p.slug, data: p.data }))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
 ---
 <BaseLayout title="Plain Sense — Old Ideas, Made Useful">
-  <header class="hero">
-    <div class="wrap">
-      <div class="eyebrow">Plain Sense</div>
-      <h1>Old Ideas,<br />Made Useful.</h1>
-      <p class="sub">
-        A small library of classical and historical writing, translated into plain language
-        and simple decision frameworks for the way we argue now. One old idea at a time.
-      </p>
-    </div>
-  </header>
+  <Hero eyebrow="Plain Sense" title={"Old Ideas,\nMade Useful."}>
+    A small library of classical and historical writing, translated into plain language and simple decision frameworks for the way we argue now. One old idea at a time.
+  </Hero>
 
   <section class="filters">
     <div class="wrap">
@@ -45,15 +39,14 @@ const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
   <section class="posts">
     <div class="wrap">
       <div class="posts-grid" id="posts-grid">
-        {posts.map((post) => (
+        {posts.map(({ slug, data }) => (
           <PostCard
-            slug={post.slug}
-            title={post.title}
-            excerpt={post.excerpt}
-            date={post.date}
-            tags={post.tags}
-            sourceAuthor={post.sourceAuthor}
-            sourceYear={post.sourceYear}
+            slug={slug}
+            title={data.title}
+            excerpt={data.excerpt}
+            tags={data.tags}
+            sourceAuthor={data.sourceAuthor}
+            sourceYear={data.sourceYear}
           />
         ))}
       </div>

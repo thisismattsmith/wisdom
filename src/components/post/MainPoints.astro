@@ -1,0 +1,65 @@
+---
+interface Point {
+  title: string;
+  body: string; // HTML allowed (author-controlled)
+}
+interface Props {
+  heading?: string;
+  points: Point[];
+}
+const { heading = 'Main Points', points } = Astro.props;
+---
+<section class="social">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    {points.map((point, i) => (
+      <div class="row">
+        <div class="n">{String(i + 1).padStart(2, '0')}</div>
+        <div class="t">
+          <strong>{point.title}</strong>
+          <span set:html={point.body} />
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .social {
+    padding: 48px 0;
+    border-top: 1px solid var(--hairline);
+  }
+  h2 {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .row {
+    display: flex;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .n {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--mute);
+    min-width: 48px;
+  }
+  .t strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .t span {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--mute);
+  }
+  @media (max-width: 760px) {
+    h2 { font-size: 24px; }
+  }
+</style>

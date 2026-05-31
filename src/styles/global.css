@@ -28,36 +28,3 @@ body {
   margin: 0 auto;
   padding: 0 24px;
 }
-
-/* Reusable hero — used on homepage and post pages */
-.hero {
-  padding: 64px 0 48px;
-  border-bottom: 1px solid var(--hairline);
-}
-.eyebrow {
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--mute);
-  margin-bottom: 18px;
-}
-.hero h1 {
-  font-size: 96px;
-  line-height: 0.9;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.005em;
-  max-width: 14ch;
-}
-.hero .sub {
-  margin-top: 24px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--charcoal);
-  max-width: 60ch;
-}
-
-@media (max-width: 760px) {
-  .hero h1 { font-size: 48px; }
-}

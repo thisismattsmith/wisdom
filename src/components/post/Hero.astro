@@ -1,0 +1,48 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+}
+const { eyebrow, title } = Astro.props;
+const titleHtml = title.replace(/\n/g, '<br />');
+---
+<header class="hero">
+  <div class="wrap">
+    {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+    <h1 set:html={titleHtml} />
+    <p class="sub"><slot /></p>
+  </div>
+</header>
+
+<style>
+  .hero {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mute);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 96px;
+    line-height: 0.9;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+    max-width: 14ch;
+  }
+  .sub {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--charcoal);
+    max-width: 60ch;
+  }
+  @media (max-width: 760px) {
+    h1 { font-size: 48px; }
+  }
+</style>

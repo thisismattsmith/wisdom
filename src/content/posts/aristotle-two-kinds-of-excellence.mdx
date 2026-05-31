@@ -1,0 +1,66 @@
+---
+title: "The Two Kinds of Excellence"
+excerpt: "Aristotle split human excellence into two distinct branches — one trained by habit, the other by teaching. The map still works, and it explains why some skills won't come from books and others won't come from practice alone."
+date: 2026-05-20
+tags: [ethics, ancient-philosophy, character, learning]
+sourceAuthor: "Aristotle"
+sourceYear: "c. 340 BCE"
+---
+import Hero from '../../components/post/Hero.astro'
+import SourceQuote from '../../components/post/SourceQuote.astro'
+import Hierarchy from '../../components/diagrams/Hierarchy.astro'
+import MainPoints from '../../components/post/MainPoints.astro'
+
+<Hero eyebrow="A Hierarchy" title={"The Two Kinds\nof Excellence"}>
+  Aristotle drew a sharp line between virtues you learn by doing and virtues you learn by thinking. The line still cuts.
+</Hero>
+
+<SourceQuote author="Aristotle" work="Nicomachean Ethics" year="c. 340 BCE">
+  "Virtue, then, being of two kinds, intellectual and moral, intellectual virtue in the main owes both its birth and its growth to teaching (for which reason it requires experience and time), while moral virtue comes about as a result of habit… none of the moral virtues arises in us by nature; for nothing that exists by nature can form a habit contrary to its nature."
+</SourceQuote>
+
+<Hierarchy
+  heading="The Map"
+  lead="Aristotle's taxonomy: a single root concept — excellence of character, or aretē — splitting into two branches with different sources, and a handful of specific virtues under each."
+  rootLabel="Aretē"
+  rootDescription="Human excellence — the disposition to function well as the kind of creature you are."
+  branches={[
+    {
+      label: "Moral Virtue",
+      description: "Acquired by habit. Learned by repeatedly doing the thing until it becomes character.",
+      leaves: [
+        { label: "Courage", note: "The mean between rashness and cowardice." },
+        { label: "Temperance", note: "The mean between indulgence and insensibility." },
+        { label: "Justice", note: "Giving each their due, in distribution and in exchange." },
+        { label: "Generosity", note: "The mean between wastefulness and stinginess." },
+      ],
+    },
+    {
+      label: "Intellectual Virtue",
+      description: "Acquired by teaching. Learned through instruction, experience, and time spent reasoning.",
+      leaves: [
+        { label: "Sophia", note: "Theoretical wisdom — grasp of unchanging truths." },
+        { label: "Phronēsis", note: "Practical wisdom — judgement in particular situations." },
+        { label: "Epistēmē", note: "Scientific knowledge of things that cannot be otherwise." },
+        { label: "Technē", note: "Craft — knowing how to make things well." },
+      ],
+    },
+  ]}
+/>
+
+<MainPoints
+  points={[
+    {
+      title: "Some virtues won't come from books.",
+      body: "Reading about courage doesn't make you brave. Moral virtues are habits — you build them by doing the thing under conditions where it's hard, and only then.",
+    },
+    {
+      title: "Some virtues won't come from practice.",
+      body: "Repeatedly trying to be wise without instruction or study doesn't build wisdom; it builds confident error. The intellectual virtues need teaching.",
+    },
+    {
+      title: "The two halves need each other.",
+      body: "Habit without judgement produces a rigid moralist. Judgement without habit produces a clever person who folds under pressure. The classical ideal needs both branches developed in tandem.",
+    },
+  ]}
+/>
