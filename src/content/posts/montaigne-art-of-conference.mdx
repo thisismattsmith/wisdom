@@ -1,0 +1,78 @@
+---
+title: "The Art of Conference"
+excerpt: "Montaigne argued that being contradicted should sharpen your attention, not your anger — and that we mostly fail at argument because we lack the courage to be corrected. A sixteenth-century rebuke to the modern reply thread."
+date: 2026-05-18
+tags: [disagreement, social-discourse, renaissance-philosophy, conversation, intellectual-humility]
+sourceAuthor: "Michel de Montaigne"
+sourceYear: "1588"
+---
+import Hero from '../../components/post/Hero.astro'
+import SourceQuote from '../../components/post/SourceQuote.astro'
+import TwoColumnFlowchart from '../../components/diagrams/TwoColumnFlowchart.astro'
+import MainPoints from '../../components/post/MainPoints.astro'
+import Sources from '../../components/post/Sources.astro'
+
+<Hero eyebrow="An Essay" title={"The Art\nof Conference"}>
+  Montaigne loved argument. Not the kind that ends with someone retreating to lick wounds, but the kind that makes both sides smarter than they were when they started. He spent an entire essay on what separates the two.
+</Hero>
+
+<SourceQuote author="Michel de Montaigne" work="Essays, Book III, Chapter VIII — Of the Art of Conference" year="1588">
+  "When any one contradicts me, he raises my attention, not my anger: I advance towards him who controverts, who instructs me; the cause of truth ought to be the common cause both of the one and the other… We evade correction, whereas we ought to offer and present ourselves to it, especially when it appears in the form of conference, and not of authority. At every opposition, we do not consider whether or no it be just, but, right or wrong, how to disengage ourselves: instead of extending the arms, we thrust out our claws… Nevertheless, it is hard to bring the men of my time to it: they have not the courage to correct, because they have not the courage to suffer themselves to be corrected."
+</SourceQuote>
+
+<TwoColumnFlowchart
+  heading="Two Modes of Disputation"
+  lead="Montaigne separates conversation into two registers: the cooperative pursuit of truth, where contradiction is welcome, and the competitive pursuit of victory, where ego replaces inquiry. The same exchange can be either, and which one is happening usually reveals itself within a minute."
+  start="A disagreement opens up"
+  leftHead="The Common Cause"
+  leftCards={[
+    { step: "Attention",  ask: "You hear the objection as information, not insult." },
+    { step: "Advance",    ask: "You move toward the person who contradicts, not away." },
+    { step: "Common Truth", ask: "You both treat truth as the goal, not the trophy." },
+    { step: "Self-Honesty",  ask: "You're willing to be the one who's wrong." },
+    { step: "Method",     ask: "The argument follows a thread; you stay on it." },
+  ]}
+  leftFoot="Productive conference"
+  rightHead="The Combat"
+  rightCards={[
+    { step: "Claws",      ask: "You're calculating how to disengage, not whether they're right." },
+    { step: "Heat",       ask: 'Passion has displaced reason: "What will the angry man answer?"' },
+    { step: "Audience",   ask: "You're playing to whoever's watching, not the person you're talking to." },
+    { step: "Stubbornness", ask: '"Obstinacy of opinion and heat in argument are the surest proofs of folly."' },
+    { step: "Form-Fight", ask: "You're contesting tone, framing, or grammar to avoid the substance." },
+  ]}
+  rightFoot="Combative dispute"
+  weighLabel="Which mode are you in?"
+  results={[
+    { tone: "go",   rtag: "If the left column dominates", title: "Keep Going" },
+    { tone: "stay", rtag: "If the right column dominates", title: "Walk Away" },
+  ]}
+/>
+
+<MainPoints
+  heading="Main Points"
+  points={[
+    {
+      title: "Contradiction is a gift, not an attack.",
+      body: 'Montaigne\'s framing is unusual and worth borrowing: <em>"the cause of truth ought to be the common cause both of the one and the other."</em> When someone pushes back on you, they are doing work on your behalf — even if it doesn\'t feel like it at the time.',
+    },
+    {
+      title: "The cowardice runs both ways.",
+      body: 'His sharpest line: people lack the courage to correct others because they lack the courage to be corrected themselves. The avoidance of feedback isn\'t politeness — it\'s a mutual non-aggression pact at the expense of truth.',
+    },
+    {
+      title: "Stubbornness signals weakness, not strength.",
+      body: '<em>"Obstinacy of opinion and heat in argument are the surest proofs of folly."</em> The person who never updates isn\'t holding the strongest position; they\'re defending the most fragile ego. The capacity to lose an argument is the mark of someone with something to lose other than face.',
+    },
+    {
+      title: "Form-fighting is the tell of a bad-faith argument.",
+      body: 'Montaigne notices that disputes go off-track when one party stops engaging the substance and starts contesting the manner — the framing, the tone, the words used. When you find yourself doing this, you\'ve crossed from conference into combat. So has the other person, often.',
+    },
+  ]}
+/>
+
+<Sources sources={[
+  { label: "Essays of Montaigne, Book III, Chapter VIII (Wikisource)", url: "https://en.wikisource.org/wiki/The_Essays_of_Montaigne/Book_III/Chapter_VIII", note: "Charles Cotton 1685 translation, public domain, full text of 'Of the Art of Conference'" },
+  { label: "Essays of Michel de Montaigne (Project Gutenberg)", url: "https://www.gutenberg.org/ebooks/3600", note: "Complete public-domain collection" },
+  { label: "Montaigne — Stanford Encyclopedia of Philosophy", url: "https://plato.stanford.edu/entries/montaigne/", note: "Modern scholarly overview of Montaigne's philosophical project" },
+]} />

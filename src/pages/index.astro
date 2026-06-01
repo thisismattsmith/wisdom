@@ -16,28 +16,31 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
     A small library of classical and historical writing, translated into plain language and simple decision frameworks for the way we argue now. One old idea at a time.
   </Hero>
 
-  <section class="filters">
+  <section class="library" data-pagefind-ignore>
     <div class="wrap">
-      <label class="search-label" for="search">Search</label>
-      <input
-        type="search"
-        id="search"
-        placeholder="Search posts by title, theme, or author…"
-        aria-label="Search posts"
-      />
-      <div class="tags" id="tags" role="group" aria-label="Filter by tag">
-        <button class="tag-chip active" data-tag="" type="button">All</button>
-        {allTags.map((tag) => (
-          <button class="tag-chip" data-tag={tag} type="button">
-            {tag.replace(/-/g, ' ')}
-          </button>
-        ))}
+      <div class="filters">
+        <label class="search-label" for="search">Search</label>
+        <input
+          type="search"
+          id="search"
+          placeholder="Search the full text of every post…"
+          aria-label="Search posts"
+        />
+        <div class="tags" id="tags" role="group" aria-label="Filter by tag">
+          <button class="tag-chip active" data-tag="" type="button">All</button>
+          {allTags.map((tag) => (
+            <button class="tag-chip" data-tag={tag} type="button">
+              {tag.replace(/-/g, ' ')}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="posts">
-    <div class="wrap">
+      <div class="results-line">
+        <span id="results-count">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</span>
+        <span id="results-status" class="status" hidden></span>
+      </div>
+
       <div class="posts-grid" id="posts-grid">
         {posts.map(({ slug, data }) => (
           <PostCard
@@ -55,32 +58,113 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
   </section>
 
   <script>
-    const search = document.getElementById('search') as HTMLInputElement | null;
+    type PagefindModule = {
+      init: () => Promise<void>;
+      search: (query: string | null, opts?: { filters?: Record<string, string> }) => Promise<{
+        results: Array<{ data: () => Promise<{ url: string; meta: Record<string, string> }> }>;
+      }>;
+    };
+
+    const searchEl = document.getElementById('search') as HTMLInputElement | null;
     const grid = document.getElementById('posts-grid');
     const empty = document.getElementById('empty');
+    const countEl = document.getElementById('results-count');
+    const statusEl = document.getElementById('results-status');
     const tagButtons = document.querySelectorAll<HTMLButtonElement>('.tag-chip');
 
     let activeTag = '';
     let query = '';
+    let pagefind: PagefindModule | null = null;
+    let pagefindReady = false;
+    let searchToken = 0;
 
-    function applyFilter() {
-      if (!grid) return;
-      const cards = grid.querySelectorAll<HTMLElement>('.post-card');
-      let visibleCount = 0;
-      cards.forEach((card) => {
-        const tags = (card.dataset.tags ?? '').split(',');
-        const searchable = (card.dataset.searchable ?? '').toLowerCase();
-        const matchesTag = !activeTag || tags.includes(activeTag);
-        const matchesQuery = !query || searchable.includes(query);
-        const visible = matchesTag && matchesQuery;
-        card.hidden = !visible;
-        if (visible) visibleCount += 1;
-      });
-      if (empty) empty.hidden = visibleCount !== 0;
+    function normalize(url: string): string {
+      return url.replace(/\/$/, '');
     }
 
-    search?.addEventListener('input', (e) => {
-      query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+    function updateCount(visible: number, total: number, filtering: boolean) {
+      if (!countEl) return;
+      const noun = visible === 1 ? 'post' : 'posts';
+      countEl.textContent = filtering
+        ? `Showing ${visible} of ${total} ${noun}`
+        : `${total} ${total === 1 ? 'post' : 'posts'}`;
+    }
+
+    function showAll() {
+      if (!grid) return;
+      const cards = grid.querySelectorAll<HTMLElement>('.post-card');
+      cards.forEach((c) => (c.hidden = false));
+      updateCount(cards.length, cards.length, false);
+      if (empty) empty.hidden = true;
+      if (statusEl) statusEl.hidden = true;
+    }
+
+    async function initPagefind() {
+      try {
+        // Pagefind is generated at build time and served from /pagefind/pagefind.js.
+        // In dev mode, astro-pagefind serves it from the last built dist folder —
+        // so you must run `npm run build` once before search works in `npm run dev`.
+        // @ts-expect-error - Loaded at runtime, no types
+        pagefind = (await import(/* @vite-ignore */ '/pagefind/pagefind.js')) as PagefindModule;
+        await pagefind.init();
+        pagefindReady = true;
+      } catch (err) {
+        console.warn(
+          'Pagefind not available. Run `npm run build` once to generate the search index.',
+          err,
+        );
+        if (statusEl) {
+          statusEl.hidden = false;
+          statusEl.textContent = 'Search index unavailable';
+        }
+      }
+    }
+
+    async function applyFilter() {
+      if (!grid) return;
+      const cards = grid.querySelectorAll<HTMLElement>('.post-card');
+      const total = cards.length;
+      const filtering = !!query || !!activeTag;
+
+      if (!filtering) {
+        showAll();
+        return;
+      }
+
+      if (!pagefindReady || !pagefind) {
+        // Pagefind hasn't loaded — leave everything visible rather than break the page.
+        showAll();
+        return;
+      }
+
+      // Cancel any in-flight searches that finish after this one.
+      const myToken = ++searchToken;
+
+      try {
+        const filters = activeTag ? { tag: activeTag } : {};
+        const result = await pagefind.search(query || null, { filters });
+        const datas = await Promise.all(result.results.map((r) => r.data()));
+        if (myToken !== searchToken) return; // stale; a newer search ran
+
+        const matching = new Set(datas.map((d) => normalize(d.url)));
+        let visible = 0;
+        cards.forEach((card) => {
+          const href = normalize(card.getAttribute('href') ?? '');
+          const isMatch = matching.has(href);
+          card.hidden = !isMatch;
+          if (isMatch) visible += 1;
+        });
+        if (empty) empty.hidden = visible !== 0;
+        updateCount(visible, total, true);
+        if (statusEl) statusEl.hidden = true;
+      } catch (err) {
+        console.error('Pagefind search failed:', err);
+        showAll();
+      }
+    }
+
+    searchEl?.addEventListener('input', (e) => {
+      query = (e.target as HTMLInputElement).value.trim();
       applyFilter();
     });
 
@@ -92,18 +176,20 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
         applyFilter();
       });
     });
+
+    initPagefind();
   </script>
 </BaseLayout>
 
 <style>
-  .filters {
-    padding: 30px 0;
-    border-bottom: 1px solid var(--hairline);
+  .library {
+    padding: 48px 0 64px;
   }
-  .filters .wrap {
+  .filters {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    margin-bottom: 30px;
   }
   .search-label {
     font-size: 12px;
@@ -158,9 +244,24 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
     border-color: var(--ink);
   }
 
-  .posts {
-    padding: 48px 0 64px;
+  .results-line {
+    padding: 14px 0;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--mute);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
   }
+  .status {
+    color: var(--sale);
+  }
+
   .posts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

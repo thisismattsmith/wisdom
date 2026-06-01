@@ -16,7 +16,7 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const { title, excerpt, sourceAuthor, sourceYear, concept } = post.data;
+const { title, excerpt, sourceAuthor, sourceYear, concept, tags } = post.data;
 
 const utilityRightParts: string[] = [];
 if (concept) utilityRightParts.push(concept);
@@ -25,6 +25,12 @@ if (sourceAuthor) {
     sourceYear ? `${sourceAuthor}, ${sourceYear}` : sourceAuthor,
   );
 }
+
+const sourceLabel = sourceAuthor
+  ? sourceYear
+    ? `${sourceAuthor}, ${sourceYear}`
+    : sourceAuthor
+  : '';
 ---
 <BaseLayout title={title} description={excerpt}>
   {utilityRightParts.length > 0 && (
@@ -32,5 +38,18 @@ if (sourceAuthor) {
       {utilityRightParts.map((part) => <span>{part}</span>)}
     </Fragment>
   )}
-  <Content />
+
+  <article data-pagefind-body>
+    {/* Pagefind metadata — hidden from view, picked up at index time */}
+    <div data-pagefind-meta={`title:${title}`} hidden />
+    <div data-pagefind-meta={`excerpt:${excerpt}`} hidden />
+    {sourceLabel && (
+      <div data-pagefind-meta={`source:${sourceLabel}`} hidden />
+    )}
+    {tags.map((tag) => (
+      <div data-pagefind-filter={`tag:${tag}`} hidden />
+    ))}
+
+    <Content />
+  </article>
 </BaseLayout>

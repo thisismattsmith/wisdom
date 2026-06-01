@@ -10,6 +10,7 @@ import Hero from '../../components/post/Hero.astro'
 import SourceQuote from '../../components/post/SourceQuote.astro'
 import Hierarchy from '../../components/diagrams/Hierarchy.astro'
 import MainPoints from '../../components/post/MainPoints.astro'
+import Sources from '../../components/post/Sources.astro'
 
 <Hero eyebrow="A Hierarchy" title={"The Two Kinds\nof Excellence"}>
   Aristotle drew a sharp line between virtues you learn by doing and virtues you learn by thinking. The line still cuts.
@@ -64,3 +65,9 @@ import MainPoints from '../../components/post/MainPoints.astro'
     },
   ]}
 />
+
+<Sources sources={[
+  { label: "Nicomachean Ethics, Book II (Internet Classics Archive)", url: "https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html", note: "Ross translation of Aristotle's argument on virtue acquired by habit" },
+  { label: "Nicomachean Ethics, Book VI (Internet Classics Archive)", url: "https://classics.mit.edu/Aristotle/nicomachaen.6.vi.html", note: "On the intellectual virtues: sophia, phronēsis, epistēmē, technē" },
+  { label: "Aristotle's Ethics — Stanford Encyclopedia of Philosophy", url: "https://plato.stanford.edu/entries/aristotle-ethics/", note: "Modern overview of the moral/intellectual division" },
+]} />

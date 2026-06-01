@@ -1,0 +1,79 @@
+---
+title: "The Flatterer and the Friend"
+excerpt: "Plutarch's 1st-century guide to distinguishing the friend who tells you the truth from the flatterer who only tells you what you want to hear. The tells haven't changed — yes-men still wear the same costume."
+date: 2026-05-12
+tags: [ethics, friendship, flattery, social-discourse, classical-philosophy]
+sourceAuthor: "Plutarch"
+sourceYear: "c. 100 CE"
+concept: "Parrhesia"
+---
+import Hero from '../../components/post/Hero.astro'
+import SourceQuote from '../../components/post/SourceQuote.astro'
+import TwoColumnFlowchart from '../../components/diagrams/TwoColumnFlowchart.astro'
+import MainPoints from '../../components/post/MainPoints.astro'
+import Sources from '../../components/post/Sources.astro'
+
+<Hero eyebrow="A Field Guide" title={"The Flatterer\nand the Friend"}>
+  Plutarch's contention is brutal: the most dangerous person in your life is not the enemy who insults you but the flatterer who agrees with everything you say. Here's how he taught Romans to tell them apart.
+</Hero>
+
+<SourceQuote author="Plutarch" work="How to Tell a Flatterer from a Friend (Moralia)" year="c. 100 CE">
+  "He who will take the pains to act the dissembler himself, by interchangeably decrying and extolling the same things, discourses, and ways of living, will easily perceive that the opinions of a flatterer are as mutable and inconstant as the colors of a polypus, that he is never consonant to himself nor properly his own man; that all his passions, his love and hatred, his joy and sorrow, are borrowed and counterfeit; and that, in a word, like a mirror, he only receives and represents the several faces or images of other men's affections and humors. Do but discommend one of your acquaintance a little in his company, and he will tell you it is a wonder you never found him out all this while, for his part he never fancied him in his life. Change but your style and commend him, he presently swears you oblige him in it, gives you a thousand thanks for the gentleman's sake, and believes your character of him to be just."
+</SourceQuote>
+
+<TwoColumnFlowchart
+  heading="The Two Companions"
+  lead="Plutarch's method: don't ask whether someone says nice things to you. Ask how they behave across time, across situations, when you're powerful and when you're weak. The flatterer fails consistency tests the friend passes without thinking."
+  start="Someone is praising you, agreeing with you, telling you what you want to hear"
+  leftHead="The Flatterer"
+  leftCards={[
+    { step: "Inconstant",  ask: "Their opinion shifts to match yours, even when yours just shifted." },
+    { step: "Mirror",      ask: "They have no view of their own — they only reflect yours back." },
+    { step: "Bad-Side Imitator", ask: "They copy your flaws more readily than your virtues." },
+    { step: "Audience-Sensitive", ask: "Their candour evaporates the moment others are present." },
+    { step: "Loyal to Mood",   ask: "Praise is hasty and lavish; criticism never comes." },
+  ]}
+  leftFoot="Some or all → Yes"
+  rightHead="The Friend"
+  rightCards={[
+    { step: "Consistent",     ask: "Their view of you is the same in private and in public." },
+    { step: "Their Own Man",  ask: "They disagree with you when they think you're wrong." },
+    { step: "Praises Truly",  ask: "They commend the right things at the right time — and only those." },
+    { step: "Frank in Kindness", ask: "Their candour (parrhesia) comes with care, not contempt." },
+    { step: "Loyal to You",   ask: "They serve your interests even when it costs them favour." },
+  ]}
+  rightFoot="Some or all → Yes"
+  weighLabel="Read the pattern across time, not the moment"
+  results={[
+    { tone: "go",   rtag: "If most signs match the left column", title: "It's a Flatterer" },
+    { tone: "stay", rtag: "If most signs match the right column", title: "It's a Friend" },
+  ]}
+/>
+
+<MainPoints
+  heading="Main Points"
+  points={[
+    {
+      title: "Self-love does the flatterer's work.",
+      body: "Plutarch's central claim is that we don't fall for flattery because flatterers are clever — we fall because we want to. <em>\"Everybody is himself his own foremost and greatest flatterer.\"</em> The defence isn't suspicion of others; it's honest measurement of yourself.",
+    },
+    {
+      title: "Frank speech is the friend's mark.",
+      body: "The Greeks called it <em>parrhesia</em> — telling people things they'd rather not hear, because they need to hear them. Plutarch treats it as the single tell the flatterer can't successfully fake. They can borrow every other quality of friendship except this one.",
+    },
+    {
+      title: "The test is consistency.",
+      body: "Anyone can praise you on a good day. The friend praises the same things on a bad day; the flatterer's praise tracks your mood, your fortune, and the audience in the room. Watch across time and the difference resolves.",
+    },
+    {
+      title: "Spencer's question, one level deeper.",
+      body: "Spencer asked when to correct someone. Plutarch asks who can correct <em>you</em>. The answer determines whether the people around you are protecting your dignity or your delusions.",
+    },
+  ]}
+/>
+
+<Sources sources={[
+  { label: "How to Know a Flatterer from a Friend (Topostext, Goodwin 1878)", url: "https://topostext.org/work/253", note: "Full text of the public-domain Goodwin translation" },
+  { label: "Plutarch, Moralia — Quomodo adulator (Perseus)", url: "http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:2008.01.0149", note: "Babbitt's 1927 Loeb translation, side-by-side with Greek" },
+  { label: "Plutarch's Moralia (Holland translation, Wikisource)", url: "https://en.wikisource.org/wiki/Plutarch%27s_Moralia_(Holland)/Essay_4", note: "1603 Philemon Holland translation" },
+]} />

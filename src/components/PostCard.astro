@@ -9,23 +9,8 @@ interface Props {
 }
 
 const { slug, title, excerpt, tags, sourceAuthor, sourceYear } = Astro.props;
-
-const searchable = [
-  title,
-  excerpt,
-  ...tags,
-  sourceAuthor ?? '',
-  sourceYear ?? '',
-]
-  .join(' ')
-  .toLowerCase();
 ---
-<a
-  href={`/posts/${slug}/`}
-  class="post-card"
-  data-tags={tags.join(',')}
-  data-searchable={searchable}
->
+<a href={`/posts/${slug}/`} class="post-card">
   {sourceAuthor && (
     <div class="meta">
       <span class="source">
@@ -51,6 +36,9 @@ const searchable = [
     text-decoration: none;
     border: 1px solid transparent;
     transition: border-color 120ms ease;
+  }
+  .post-card[hidden] {
+    display: none;
   }
   .post-card:hover {
     border-color: var(--ink);

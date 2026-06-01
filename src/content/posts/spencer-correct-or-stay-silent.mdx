@@ -10,6 +10,7 @@ concept: "Negative Beneficence"
 import Hero from '../../components/post/Hero.astro'
 import SourceQuote from '../../components/post/SourceQuote.astro'
 import MainPoints from '../../components/post/MainPoints.astro'
+import Sources from '../../components/post/Sources.astro'
 import DecisionTree from '../../components/diagrams/DecisionTree.astro'
 import TwoColumnFlowchart from '../../components/diagrams/TwoColumnFlowchart.astro'
 
@@ -108,3 +109,8 @@ import TwoColumnFlowchart from '../../components/diagrams/TwoColumnFlowchart.ast
     { tone: "stay", rtag: "If the right side prevails", title: "Stay Silent" },
   ]}
 />
+
+<Sources sources={[
+  { label: "The Data of Ethics (Project Gutenberg)", url: "https://www.gutenberg.org/ebooks/45842", note: "Spencer's 1879 text, public domain, full searchable edition" },
+  { label: "Herbert Spencer — Stanford Encyclopedia of Philosophy", url: "https://plato.stanford.edu/entries/spencer/", note: "Context on Spencer's ethics within his wider system" },
+]} />

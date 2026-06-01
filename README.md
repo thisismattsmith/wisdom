@@ -110,7 +110,17 @@ src/
 
 ## Search
 
-Client-side filter on the homepage. As you type, post cards hide/show based on title, excerpt, tags, and source author. Tag chips do the same. At this scale it's the right tool — if the library grows past ~50 posts, swap in Pagefind for full-text indexed search.
+Full-text search powered by [Pagefind](https://pagefind.app). The index is generated at build time from every post's rendered HTML — every word in the source quote, decision tree, hierarchy, and main points is searchable, not just the title and excerpt.
+
+Tag chips act as Pagefind filters; the search input does full-text matching. They compose: typing "ethics" while the `social-discourse` tag is active returns only posts in that tag containing "ethics".
+
+### Dev-mode quirk
+
+Pagefind generates its index at build time. In dev mode, `astro-pagefind` serves the index from the most recent `dist/` folder — so **you must run `npm run build` once before search works in `npm run dev`**.
+
+If you haven't built yet, the search UI still renders and posts still display; queries just silently fail (the page logs a console warning). Build once and reload.
+
+When you add new posts or edit existing ones, run `npm run build` again to refresh the index for dev mode. Production builds always rebuild the index automatically.
 
 ## Renaming the site
 

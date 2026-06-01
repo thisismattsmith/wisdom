@@ -1,0 +1,77 @@
+---
+title: "The Humble Inquirer"
+excerpt: "Benjamin Franklin trained himself out of the language of certainty — 'undoubtedly,' 'certainly' — and into the language of inquiry. The trade-off, by his own account, was the most useful linguistic habit of his life."
+date: 2026-05-15
+tags: [persuasion, rhetoric, self-improvement, american-philosophy, disagreement]
+sourceAuthor: "Benjamin Franklin"
+sourceYear: "1771"
+---
+import Hero from '../../components/post/Hero.astro'
+import SourceQuote from '../../components/post/SourceQuote.astro'
+import TwoColumnFlowchart from '../../components/diagrams/TwoColumnFlowchart.astro'
+import MainPoints from '../../components/post/MainPoints.astro'
+import Sources from '../../components/post/Sources.astro'
+
+<Hero eyebrow="A Habit of Speech" title="The Humble Inquirer">
+  Franklin made one small change to how he phrased his opinions. By his own count, it became the single most useful conversational habit he ever developed.
+</Hero>
+
+<SourceQuote author="Benjamin Franklin" work="The Autobiography of Benjamin Franklin" year="1771">
+  "I procur'd Xenophon's Memorable Things of Socrates, wherein there are many instances of the [Socratic Method]. I was charm'd with it, adopted it, dropt my abrupt contradiction and positive argumentation, and put on the humble inquirer and doubter… I continu'd this method some few years, but gradually left it, retaining only the habit of expressing myself in terms of modest diffidence; never using, when I advanced any thing that may possibly be disputed, the words <em>certainly</em>, <em>undoubtedly</em>, or any others that give the air of positiveness to an opinion; but rather say, <em>I conceive</em> or <em>apprehend</em> a thing to be so and so; <em>it appears to me</em>, or <em>I should think</em> it so or so, for such and such reasons; or <em>I imagine</em> it to be so; or it is so, <em>if I am not mistaken</em>. This habit, I believe, has been of great advantage to me when I have had occasion to inculcate my opinions, and persuade men into measures that I have been from time to time engaged in promoting."
+</SourceQuote>
+
+<TwoColumnFlowchart
+  heading="The Phrasebook"
+  lead="Franklin's claim is mechanical: the same opinion, dressed in different language, persuades or repels. The right column phrasings invite the listener into the question; the left column phrasings dare them to disagree. The difference is small on the page and enormous in effect."
+  start="You're about to express an opinion that could be disputed"
+  leftHead="Triggers Resistance"
+  leftCards={[
+    { step: "Certainly",   ask: '"Certainly it is the case that…"' },
+    { step: "Undoubtedly", ask: '"Undoubtedly the answer is…"' },
+    { step: "Obviously",   ask: '"Obviously, you can see that…"' },
+    { step: "Clearly",     ask: '"Clearly, the right move is…"' },
+    { step: "Of Course",   ask: '"Of course, anyone who thinks about it would…"' },
+  ]}
+  leftFoot="Closes the room"
+  rightHead="Invites Engagement"
+  rightCards={[
+    { step: "I conceive",  ask: '"I conceive a thing to be so and so."' },
+    { step: "It appears",  ask: '"It appears to me that…"' },
+    { step: "I should think", ask: '"I should think it is so, for such and such reasons."' },
+    { step: "I imagine",   ask: '"I imagine it to be so."' },
+    { step: "If I am not mistaken", ask: '"It is so, if I am not mistaken."' },
+  ]}
+  rightFoot="Opens the room"
+  weighLabel="Same opinion, different doorway"
+  results={[
+    { tone: "go",   rtag: "Left-column phrasing", title: "Likely Rejected" },
+    { tone: "stay", rtag: "Right-column phrasing", title: "Likely Considered" },
+  ]}
+/>
+
+<MainPoints
+  heading="Main Points"
+  points={[
+    {
+      title: "Confidence in language doesn't transmit as confidence in idea.",
+      body: 'When you say <em>"certainly"</em>, listeners hear an assertion of <em>your</em> certainty, not the quality of the argument. The reaction is to test you, not the claim. Hedge the speaker, expose the claim.',
+    },
+    {
+      title: "Disagreement isn't softened — it's relocated.",
+      body: 'Franklin isn\'t telling you to abandon your view. He\'s telling you to put the view on the table for examination rather than planting it as a flag. "I conceive" doesn\'t mean you\'re unsure; it means the question is still open <em>between you and the listener</em>.',
+    },
+    {
+      title: "Pride is the obstacle to changing your mind.",
+      body: 'Franklin admits the deeper reason for the habit: <em>"there is, perhaps, no one of our natural passions so hard to subdue as pride."</em> The hedged phrasings make it easier for the other person to update — but they also make it easier for <em>you</em> to update, since you never staked everything on certainty in the first place.',
+    },
+    {
+      title: "It works because most people don't do it.",
+      body: 'In a culture of confident assertion, the speaker who concedes uncertainty stands out as more thoughtful, not less. Franklin\'s edge came from being one of the few in the room who didn\'t mistake volume for argument.',
+    },
+  ]}
+/>
+
+<Sources sources={[
+  { label: "Autobiography of Benjamin Franklin (Project Gutenberg)", url: "https://www.gutenberg.org/ebooks/20203", note: "Full public-domain text, with the humble inquirer passage early in Part 1" },
+  { label: "Benjamin Franklin Papers (Founders Online, U.S. National Archives)", url: "https://founders.archives.gov/about/Franklin", note: "Authoritative scholarly edition with manuscript history" },
+]} />

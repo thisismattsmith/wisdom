@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.9",
-    "astro": "^4.16.0"
+    "astro": "^4.16.0",
+    "astro-pagefind": "^2.0.0",
+    "pagefind": "^1.5.2"
   }
 }

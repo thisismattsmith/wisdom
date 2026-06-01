@@ -1,4 +1,15 @@
 declare module 'astro:content' {
+	interface Render {
+		'.mdx': Promise<{
+			Content: import('astro').MarkdownInstance<{}>['Content'];
+			headings: import('astro').MarkdownHeading[];
+			remarkPluginFrontmatter: Record<string, any>;
+			components: import('astro').MDXInstance<{}>['components'];
+		}>;
+	}
+}
+
+declare module 'astro:content' {
 	interface RenderResult {
 		Content: import('astro/runtime/server/index.js').AstroComponentFactory;
 		headings: import('astro').MarkdownHeading[];
@@ -140,14 +151,78 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"posts": Record<string, {
-  id: string;
-  slug: string;
+		"posts": {
+"aristotle-two-kinds-of-excellence.mdx": {
+	id: "aristotle-two-kinds-of-excellence.mdx";
+  slug: "aristotle-two-kinds-of-excellence";
   body: string;
   collection: "posts";
-  data: InferEntrySchema<"posts">;
-  render(): Render[".md"];
-}>;
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"chesterfield-private-pocket.mdx": {
+	id: "chesterfield-private-pocket.mdx";
+  slug: "chesterfield-private-pocket";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"confucius-mirror-and-model.mdx": {
+	id: "confucius-mirror-and-model.mdx";
+  slug: "confucius-mirror-and-model";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"franklin-humble-inquirer.mdx": {
+	id: "franklin-humble-inquirer.mdx";
+  slug: "franklin-humble-inquirer";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"maimonides-rules-of-rebuke.mdx": {
+	id: "maimonides-rules-of-rebuke.mdx";
+  slug: "maimonides-rules-of-rebuke";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"marcus-aurelius-truth-never-harmed.mdx": {
+	id: "marcus-aurelius-truth-never-harmed.mdx";
+  slug: "marcus-aurelius-truth-never-harmed";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"montaigne-art-of-conference.mdx": {
+	id: "montaigne-art-of-conference.mdx";
+  slug: "montaigne-art-of-conference";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"pascal-side-they-missed.mdx": {
+	id: "pascal-side-they-missed.mdx";
+  slug: "pascal-side-they-missed";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"plutarch-flatterer-and-friend.mdx": {
+	id: "plutarch-flatterer-and-friend.mdx";
+  slug: "plutarch-flatterer-and-friend";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"spencer-correct-or-stay-silent.mdx": {
+	id: "spencer-correct-or-stay-silent.mdx";
+  slug: "spencer-correct-or-stay-silent";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+};
 
 	};
 

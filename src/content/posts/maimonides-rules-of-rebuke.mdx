@@ -1,0 +1,97 @@
+---
+title: "The Rules of Rebuke"
+excerpt: "Maimonides codified a procedure for correcting another person: private first, gentle voice, for their benefit, repeated only until you'd shame them. The twelfth-century rule still maps onto every modern feedback conversation worth having."
+date: 2026-05-08
+tags: [ethics, jewish-philosophy, feedback, social-discourse, medieval-philosophy]
+sourceAuthor: "Maimonides"
+sourceYear: "c. 1180"
+---
+import Hero from '../../components/post/Hero.astro'
+import SourceQuote from '../../components/post/SourceQuote.astro'
+import DecisionTree from '../../components/diagrams/DecisionTree.astro'
+import MainPoints from '../../components/post/MainPoints.astro'
+import Sources from '../../components/post/Sources.astro'
+
+<Hero eyebrow="A Procedure" title="The Rules of Rebuke">
+  Maimonides treated correction as a mitzvah — an obligation, not a temptation. But the obligation came with strict procedure: do it privately, do it gently, do it for them, and stop before you wound them.
+</Hero>
+
+<SourceQuote author="Maimonides" work="Mishneh Torah, Hilchot De'ot 6:7 (paraphrased)" year="c. 1180">
+  Maimonides's core instruction, stated in the opening line of Halacha 6:7, is to rebuke privately, speak patiently and gently, and make clear that you are speaking for the other person's good. The remainder of the chapter elaborates the procedure summarised below; readers are encouraged to consult the linked Sefaria edition for the full Hebrew and English text.
+</SourceQuote>
+
+<DecisionTree
+  intro="The Procedure"
+  lead="Maimonides walks through it as a sequence, not a single moment. Each step has its own test and its own limit. Skip a step and the rebuke is no longer a kindness — it's an insult dressed up as one."
+  yesHint="proceed"
+  noHint="stop here"
+  nodes={[
+    {
+      step: "Setting",
+      question: "Is this happening in private, away from witnesses?",
+      plain: "The first rule. Rebuke that takes place in front of others is no longer rebuke — it's humiliation, with a moral framing pasted on the front. Take them aside, or wait for the moment you can.",
+    },
+    {
+      step: "Tone",
+      question: "Can you speak patiently and gently?",
+      plain: "If you can't, you shouldn't speak yet. Maimonides isn't being polite — he's being practical. A rebuke delivered in heat is processed as an attack, and the listener defends instead of considering.",
+    },
+    {
+      step: "Motive",
+      question: "Is this for their benefit, not yours?",
+      plain: "If the satisfaction would be in saying it — proving them wrong, restoring your standing, releasing your frustration — wait. The rebuke is only authorised when its purpose is the other person's good. Maimonides is explicit that you must make this purpose clear to them.",
+    },
+    {
+      step: "Persistence",
+      question: "If they didn't accept it, are you willing to repeat — gently — once or twice more?",
+      plain: "A single rebuke isn't a magic act. Maimonides assumes you may need to say it more than once, just as patiently each time. But there's a terminal condition: when the person makes clear they will not hear it, the obligation ends. You don't escalate; you stop.",
+    },
+    {
+      step: "Restraint",
+      question: "Have you stopped before causing them visible shame?",
+      plain: "This is the hard line. The moment your words would make their face change colour with embarrassment, you have crossed from rebuke into the prohibition on shaming. Even in private. Even if you are right. The wound is the violation.",
+    },
+  ]}
+  outcomes={[
+    {
+      tone: "correct",
+      label: "If every step holds",
+      title: "Proceed",
+      body: "This is what Maimonides means by the obligation to rebuke — private, gentle, motivated by their welfare, repeated as needed, halted before shame. Done this way, correction is one of the highest acts in his ethical system.",
+    },
+    {
+      tone: "silent",
+      label: "If any step fails",
+      title: "Wait or Withhold",
+      body: "Stop. Maimonides treats a failed condition as disqualifying — not a softer version of the same act, but a different act entirely. Halacha 6:9 endorses silence when rebuke cannot be delivered without inflicting harm. The pious response is sometimes <em>not</em> to speak.",
+    },
+  ]}
+/>
+
+<MainPoints
+  heading="Main Points"
+  points={[
+    {
+      title: "Rebuke is procedural, not just intentional.",
+      body: "Wanting to help is not enough. Maimonides specifies the form — private, gentle, for their benefit, halted before shame — because the form is what makes the difference between care and damage. Bad procedure with good intent still produces harm.",
+    },
+    {
+      title: "Public correction is categorically different.",
+      body: "The Talmudic measure Maimonides cites is whether the person's face changes colour with embarrassment. Once shame is on the table, the act stops being correction and becomes something Maimonides classes among the gravest interpersonal sins — denying the offender, in his framing, a portion in the world to come.",
+    },
+    {
+      title: "The other person's refusal is a hard stop.",
+      body: "When the person being rebuked makes clear they will not hear it — through their words or their evident unwillingness — the obligation ends. Maimonides does not escalate to public denunciation in personal matters. Persistence past refusal is no longer rebuke; it is harassment.",
+    },
+    {
+      title: "Silence can be the most pious response.",
+      body: "Halacha 6:9 explicitly praises the person who, faced with a colleague unable to receive correction, simply forgives and stays quiet. The procedure has limits; when those limits hit, withholding rebuke is not weakness but care.",
+    },
+  ]}
+/>
+
+<Sources sources={[
+  { label: "Mishneh Torah, Human Dispositions 6 (Sefaria)", url: "https://www.sefaria.org/Mishneh_Torah%2C_Human_Dispositions.6?lang=bi", note: "Bilingual Hebrew/English source text — see halachot 6:7–9" },
+  { label: "Mishneh Torah, De'ot Chapter 6 (Chabad.org)", url: "https://www.chabad.org/library/article_cdo/aid/910346/jewish/Deot-Chapter-Six.htm", note: "Touger English translation with extensive commentary" },
+  { label: "Maimonides — Stanford Encyclopedia of Philosophy", url: "https://plato.stanford.edu/entries/maimonides/", note: "Context on Maimonides's ethical and legal project" },
+]} />
